@@ -6,7 +6,7 @@ module Bittrex
 
     def initialize(attrs = {})
       @id = attrs['Id'] || attrs['OrderUuid']
-      @type = (attrs['Type'] || attrs['OrderType']).to_s.capitalize
+      @type = (attrs['Type'] || attrs['OrderType']).downcase.camelize
       @exchange = attrs['Exchange']
       @quantity = attrs['Quantity']
       @remaining = attrs['QuantityRemaining']
