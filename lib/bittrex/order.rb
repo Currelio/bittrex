@@ -5,17 +5,17 @@ module Bittrex
                 :total, :fill, :executed_at, :raw
 
     def initialize(attrs = {})
-      @id = attrs['Id'] || attrs['OrderUuid']
-      @type = (attrs['Type'] || attrs['OrderType']).downcase.camelize
-      @exchange = attrs['Exchange']
-      @quantity = attrs['Quantity']
-      @remaining = attrs['QuantityRemaining']
-      @price = attrs['Rate'] || attrs['Price']
-      @total = attrs['Total']
-      @fill = attrs['FillType']
-      @limit = attrs['Limit']
-      @commission = attrs['Commission']
-      @raw = attrs
+      @id          = attrs['Id'] || attrs['OrderUuid']
+      @type        = (attrs['Type'] || attrs['OrderType']).downcase.camelize
+      @exchange    = attrs['Exchange']
+      @quantity    = attrs['Quantity']
+      @remaining   = attrs['QuantityRemaining']
+      @price       = attrs['Rate'] || attrs['Price']
+      @total       = attrs['Total']
+      @fill        = attrs['FillType']
+      @limit       = attrs['Limit']
+      @commission  = attrs['Commission']
+      @raw         = attrs
       @executed_at = Time.parse(attrs['TimeStamp'])
     end
 
@@ -44,7 +44,11 @@ module Bittrex
     def self.history
       client.get('account/getorderhistory').map{|data| new(data) }
     end
-    
+
+    def self.history_for(market)
+      client.get("account/getorderhistory?market=#{market}").map{|data| new(data) }
+    end
+
     def self.order(uuid)
       client.get('account/getorder', uuid: uuid)
     end
