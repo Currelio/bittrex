@@ -13,7 +13,7 @@ module Bittrex
   autoload :Withdrawl,     'bittrex/withdrawl'
 
   def self.client
-    @client ||= Client.new(configuration.auth)
+    Client.new(configuration.auth)
   end
 
   def self.config

@@ -23,7 +23,7 @@ module Bittrex
     private
 
     def self.client
-      @client ||= Bittrex.client
+      Bittrex.client
     end
   end
 end
